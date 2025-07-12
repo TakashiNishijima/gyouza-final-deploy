@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>接続診断ツール</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007cba;
+            padding-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .warning { background: #fff3cd; color: #856404; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        
+        .test-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .test-item h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .test-result {
+            font-family: monospace;
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .manual-links {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .manual-links h3 {
+            margin-top: 0;
+            color: #856404;
+        }
+        .manual-links a {
+            display: block;
+            margin: 5px 0;
+            color: #856404;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 接続診断ツール</h1>
+        
+        <div class="status info">
+            各種サーバーへの接続状態を診断します
+        </div>
+
+        <div class="test-item">
+            <h3>📊 現在の環境情報</h3>
+            <div class="test-result" id="env-info">
+                現在時刻: <span id="current-time"></span><br>
+                ブラウザ: <span id="browser-info"></span><br>
+                ページURL: <span id="page-url"></span>
+            </div>
+        </div>
+
+        <div class="test-item">
+            <h3>🌐 メインサーバー (ポート3000)</h3>
+            <div class="test-result" id="main-server-result">テスト実行中...</div>
+        </div>
+
+        <div class="test-item">
+            <h3>🔌 APIサーバー (ポート3001)</h3>
+            <div class="test-result" id="api-server-result">テスト実行中...</div>
+        </div>
+
+        <div class="test-item">
+            <h3>🏗️ Sanity Studio (ポート3333)</h3>
+            <div class="test-result" id="studio-server-result">テスト実行中...</div>
+        </div>
+
+        <div class="manual-links">
+            <h3>🔗 手動確認用リンク</h3>
+            <a href="http://localhost:3000/" target="_blank">メインサイト (localhost:3000)</a>
+            <a href="http://localhost:3001/api/test-connection" target="_blank">API接続テスト (localhost:3001)</a>
+            <a href="http://localhost:3333/" target="_blank">Sanity Studio (localhost:3333)</a>
+            <a href="http://localhost:8080/" target="_blank">Python簡易サーバー (localhost:8080) ※存在する場合</a>
+        </div>
+
+        <div class="status warning">
+            <strong>💡 トラブルシューティング:</strong><br>
+            • 上記リンクを直接クリックして動作確認してください<br>
+            • ブラウザのコンソール(F12)でエラーメッセージを確認してください<br>
+            • セキュリティソフトやファイアウォールの設定を確認してください
+        </div>
+
+        <div class="test-item">
+            <h3>📋 診断結果</h3>
+            <div class="test-result" id="diagnosis-result">診断実行中...</div>
+        </div>
+    </div>
+
+    <script>
+        // 環境情報を表示
+        document.getElementById('current-time').textContent = new Date().toLocaleString('ja-JP');
+        document.getElementById('browser-info').textContent = navigator.userAgent;
+        document.getElementById('page-url').textContent = window.location.href;
+
+        // 診断結果を格納
+        const results = {
+            mainServer: false,
+            apiServer: false,
+            studioServer: false
+        };
+
+        function updateResult(elementId, message, success = false) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = message;
+            element.style.color = success ? '#155724' : '#721c24';
+        }
+
+        function updateDiagnosis() {
+            const diagnosis = document.getElementById('diagnosis-result');
+            const successCount = Object.values(results).filter(Boolean).length;
+            
+            let message = `接続可能なサーバー: ${successCount}/3\n\n`;
+            
+            if (results.mainServer) {
+                message += '✅ メインサーバー: 正常\n';
+            } else {
+                message += '❌ メインサーバー: 接続不可\n';
+            }
+            
+            if (results.apiServer) {
+                message += '✅ APIサーバー: 正常\n';
+            } else {
+                message += '❌ APIサーバー: 接続不可\n';
+            }
+            
+            if (results.studioServer) {
+                message += '✅ Sanity Studio: 正常\n';
+            } else {
+                message += '❌ Sanity Studio: 接続不可\n';
+            }
+            
+            message += '\n';
+            
+            if (successCount === 3) {
+                message += '🎉 すべてのサーバーが正常に動作しています！';
+            } else if (successCount >= 1) {
+                message += '⚠️ 一部のサーバーに接続できません。手動リンクで確認してください。';
+            } else {
+                message += '🚨 すべてのサーバーに接続できません。ネットワーク設定を確認してください。';
+            }
+            
+            diagnosis.textContent = message;
+        }
+
+        // メインサーバーテスト
+        async function testMainServer() {
+            try {
+                const response = await fetch('http://localhost:3000/debug.html');
+                if (response.ok) {
+                    results.mainServer = true;
+                    updateResult('main-server-result', '✅ 正常に接続できました', true);
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                updateResult('main-server-result', `❌ 接続エラー: ${error.message}`);
+            }
+            updateDiagnosis();
+        }
+
+        // APIサーバーテスト
+        async function testApiServer() {
+            try {
+                const response = await fetch('http://localhost:3001/api/test-connection');
+                if (response.ok) {
+                    const data = await response.json();
+                    results.apiServer = true;
+                    updateResult('api-server-result', `✅ 正常に接続できました\nレスポンス: ${JSON.stringify(data)}`, true);
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                updateResult('api-server-result', `❌ 接続エラー: ${error.message}`);
+            }
+            updateDiagnosis();
+        }
+
+        // Sanity Studioテスト
+        async function testStudioServer() {
+            try {
+                const response = await fetch('http://localhost:3333/');
+                if (response.ok) {
+                    results.studioServer = true;
+                    updateResult('studio-server-result', '✅ 正常に接続できました', true);
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                updateResult('studio-server-result', `❌ 接続エラー: ${error.message}`);
+            }
+            updateDiagnosis();
+        }
+
+        // 順次テスト実行
+        setTimeout(testMainServer, 500);
+        setTimeout(testApiServer, 1000);
+        setTimeout(testStudioServer, 1500);
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プレビューテスト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007cba;
+            padding-bottom: 10px;
+        }
+        .status {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 プレビュー機能テスト</h1>
+        
+        <div class="status">
+            ✅ iframe内でこのページが表示されていれば、プレビュー機能は正常に動作しています！
+        </div>
+        
+        <h2>テスト情報</h2>
+        <ul>
+            <li><strong>現在時刻:</strong> <span id="current-time"></span></li>
+            <li><strong>URL:</strong> <span id="current-url"></span></li>
+            <li><strong>User Agent:</strong> <span id="user-agent"></span></li>
+        </ul>
+        
+        <h2>次のステップ</h2>
+        <p>このテストページが表示されたら、実際のReactアプリのブログページもプレビューできるはずです。</p>
+        
+        <script>
+            document.getElementById('current-time').textContent = new Date().toLocaleString('ja-JP');
+            document.getElementById('current-url').textContent = window.location.href;
+            document.getElementById('user-agent').textContent = navigator.userAgent;
+        </script>
+    </div>
+</body>
+</html>
