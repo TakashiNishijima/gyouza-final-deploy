@@ -68,6 +68,24 @@ const server = http.createServer(async (req, res) => {
         }));
       }
       
+    } else if (pathname === '/api/about') {
+      // Aboutページのデータ取得
+      const about = await client.fetch('*[_type == "about"][0]{_id, title, content}');
+      
+      if (about) {
+        res.writeHead(200);
+        res.end(JSON.stringify({
+          success: true,
+          about: about
+        }));
+      } else {
+        res.writeHead(404);
+        res.end(JSON.stringify({
+          success: false,
+          error: 'About page not found'
+        }));
+      }
+      
     } else if (pathname === '/api/all-documents') {
       // 全ドキュメント取得
       const docs = await client.fetch('*[]{_type, _id, title}[0..20]');

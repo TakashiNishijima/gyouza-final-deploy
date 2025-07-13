@@ -4,114 +4,1052 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gyouza Blog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        
+        :root {
+            /* オシャレなカラーシステム */
+            --primary-gradient: linear-gradient(135deg, #0a0a0f 0%, #1a1326 20%, #2d1b4e 40%, #4a2c7a 60%, #6b46c1 80%, #8b5cf6 100%);
+            --secondary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #ff9a9e 75%, #fecfef 100%);
+            --accent-gradient: linear-gradient(45deg, #ec4899 0%, #8b5cf6 25%, #06b6d4 50%, #10b981 75%, #f59e0b 100%);
+            --warm-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #ff8a80 50%, #ff7043 75%, #e65100 100%);
+            --cool-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 25%, #c3cfe2 50%, #667eea 75%, #764ba2 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.9);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --text-accent: #fbbf24;
+            --shadow-primary: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 40px rgba(236, 72, 153, 0.3);
+            --shadow-cool: 0 0 30px rgba(59, 130, 246, 0.2);
+            --shadow-warm: 0 0 35px rgba(249, 115, 22, 0.25);
+            --shadow-inner: inset 0 2px 4px rgba(255, 255, 255, 0.08);
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
         body { 
-            font-family: 'Segoe UI', system-ui, sans-serif; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+            background: var(--primary-gradient);
             min-height: 100vh;
-            color: white;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-feature-settings: "kern";
+            font-feature-settings: "kern";
+            text-rendering: optimizeQuality;
         }
+        
+        /* オシャレな背景アニメーション */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 15% 30%, rgba(236, 72, 153, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 85% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 60% 80%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 70% 40%, rgba(245, 158, 11, 0.1) 0%, transparent 35%);
+            animation: colorfulFlow 25s ease-in-out infinite alternate;
+            z-index: -1;
+        }
+        
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 90% 60%, rgba(251, 191, 36, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 10% 90%, rgba(168, 85, 247, 0.12) 0%, transparent 55%);
+            animation: colorfulFlow 30s ease-in-out infinite alternate-reverse;
+            z-index: -1;
+        }
+        
+        @keyframes colorfulFlow {
+            0% { 
+                transform: translateX(-5px) translateY(-8px) scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(8px) translateY(5px) scale(1.02) rotate(180deg);
+                opacity: 1;
+            }
+            100% { 
+                transform: translateX(5px) translateY(8px) scale(1.05) rotate(360deg);
+                opacity: 0.9;
+            }
+        }
+        
         .container { 
-            max-width: 1200px; 
+            max-width: 1400px; 
             margin: 0 auto; 
-            padding: 20px; 
+            padding: 40px 20px;
+            position: relative;
         }
+        
         header { 
             text-align: center; 
-            padding: 40px 0; 
-            border-bottom: 2px solid rgba(255,255,255,0.2);
-            margin-bottom: 40px;
+            padding: 80px 0 60px; 
+            position: relative;
+            margin-bottom: 60px;
         }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 3px;
+            box-shadow: 
+                0 0 20px rgba(236, 72, 153, 0.4),
+                0 0 40px rgba(139, 92, 246, 0.3),
+                0 0 60px rgba(6, 182, 212, 0.2);
+            animation: rainbowGlow 3s ease-in-out infinite alternate;
+        }
+        
+        @keyframes rainbowGlow {
+            0% { 
+                box-shadow: 
+                    0 0 20px rgba(236, 72, 153, 0.6),
+                    0 0 40px rgba(139, 92, 246, 0.4),
+                    0 0 60px rgba(6, 182, 212, 0.3);
+            }
+            50% {
+                box-shadow: 
+                    0 0 25px rgba(16, 185, 129, 0.5),
+                    0 0 45px rgba(245, 158, 11, 0.4),
+                    0 0 65px rgba(251, 191, 36, 0.3);
+            }
+            100% { 
+                box-shadow: 
+                    0 0 30px rgba(236, 72, 153, 0.8),
+                    0 0 50px rgba(139, 92, 246, 0.6),
+                    0 0 70px rgba(6, 182, 212, 0.4);
+            }
+        }
+        
         h1 { 
-            font-size: 3rem; 
-            margin-bottom: 10px; 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            letter-spacing: -0.02em;
+            line-height: 0.9;
+            position: relative;
+            animation: titleGlow 3s ease-in-out infinite alternate;
         }
+        
+        /* 見出し内の絵文字を強制的に正常表示 */
+        h1 .emoji, h2 .emoji, h3 .emoji {
+            color: initial !important;
+            -webkit-text-fill-color: unset !important;
+            background: transparent !important;
+            background-image: none !important;
+            background-clip: border-box !important;
+            -webkit-background-clip: border-box !important;
+            text-shadow: none !important;
+            filter: none !important;
+            animation: none !important;
+        }
+        
+        @keyframes titleGlow {
+            0% { 
+                filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.5)) 
+                        drop-shadow(0 0 30px rgba(139, 92, 246, 0.3)); 
+            }
+            50% {
+                filter: drop-shadow(0 0 30px rgba(6, 182, 212, 0.6)) 
+                        drop-shadow(0 0 40px rgba(16, 185, 129, 0.4));
+            }
+            100% { 
+                filter: drop-shadow(0 0 40px rgba(245, 158, 11, 0.7)) 
+                        drop-shadow(0 0 50px rgba(251, 191, 36, 0.5)); 
+            }
+        }
+        
         .subtitle { 
-            font-size: 1.2rem; 
-            opacity: 0.8; 
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.02em;
+            margin-top: 10px;
         }
         .blog-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 30px; 
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+            gap: 40px; 
+            margin-top: 60px;
+            padding: 20px 0;
         }
+        
         .blog-card { 
-            background: rgba(255,255,255,0.1); 
-            backdrop-filter: blur(10px);
-            border-radius: 15px; 
-            padding: 25px; 
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px; 
+            padding: 40px 35px; 
+            border: 1px solid var(--glass-border);
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: var(--shadow-primary);
         }
+        
+        .blog-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .blog-card:hover::before {
+            left: 100%;
+        }
+        
         .blog-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform: translateY(-12px) scale(1.02); 
+            box-shadow: 
+                var(--shadow-primary), 
+                var(--shadow-glow),
+                var(--shadow-cool),
+                var(--shadow-warm),
+                var(--shadow-inner);
+            border-color: var(--glass-highlight);
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.08) 0%, 
+                rgba(236, 72, 153, 0.05) 50%, 
+                rgba(139, 92, 246, 0.03) 100%);
         }
+        
         .blog-title { 
-            font-size: 1.4rem; 
-            margin-bottom: 10px; 
-            color: #fff;
+            font-size: 1.75rem; 
+            font-weight: 700;
+            margin-bottom: 16px; 
+            color: var(--text-primary);
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            position: relative;
+            z-index: 2;
         }
+        
         .blog-excerpt { 
-            opacity: 0.9; 
-            line-height: 1.6; 
-            margin-bottom: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7; 
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 2;
         }
+        
         .blog-meta { 
             font-size: 0.9rem; 
-            opacity: 0.7; 
-            border-top: 1px solid rgba(255,255,255,0.2);
-            padding-top: 15px;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            z-index: 2;
         }
-        .loading { 
-            text-align: center; 
-            font-size: 1.2rem; 
-            opacity: 0.8;
-            padding: 40px;
+        
+        .blog-meta div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
         }
-        .error { 
-            background: rgba(255,0,0,0.1); 
-            border: 1px solid rgba(255,0,0,0.3);
-            padding: 20px; 
-            border-radius: 10px; 
-            text-align: center;
-        }
+        /* ナビゲーション */
         nav {
-            background: rgba(255,255,255,0.1);
-            padding: 15px 0;
-            margin-bottom: 20px;
-            border-radius: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 20px 0;
+            margin-bottom: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-primary);
+            position: relative;
         }
+        
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            border-radius: 20px 20px 0 0;
+            animation: navGlow 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes navGlow {
+            0% { 
+                background: var(--accent-gradient);
+                box-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+            }
+            50% {
+                background: var(--cool-gradient);
+                box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+            }
+            100% { 
+                background: var(--warm-gradient);
+                box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
+            }
+        }
+        
         nav ul {
             display: flex;
             justify-content: center;
             list-style: none;
-            gap: 30px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
+        
         nav a {
-            color: white;
+            color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            padding: 10px 20px;
-            border-radius: 5px;
-            transition: background 0.3s ease;
+            font-weight: 600;
+            padding: 14px 28px;
+            border-radius: 16px;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            font-size: 0.95rem;
+            letter-spacing: 0.01em;
         }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--accent-gradient);
+            border-radius: 16px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
         nav a:hover {
-            background: rgba(255,255,255,0.2);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 25px rgba(236, 72, 153, 0.2),
+                0 4px 15px rgba(139, 92, 246, 0.3),
+                0 2px 8px rgba(6, 182, 212, 0.2);
         }
+        
+        nav a:hover::before {
+            opacity: 0.2;
+            background: var(--cool-gradient);
+        }
+        
         .active {
-            background: rgba(255,255,255,0.3) !important;
+            color: var(--text-primary) !important;
+            background: linear-gradient(135deg, 
+                rgba(236, 72, 153, 0.15) 0%, 
+                rgba(139, 92, 246, 0.1) 50%, 
+                rgba(6, 182, 212, 0.05) 100%) !important;
+            box-shadow: 
+                inset 0 1px 2px rgba(255,255,255,0.1),
+                0 4px 15px rgba(236, 72, 153, 0.3),
+                0 2px 8px rgba(139, 92, 246, 0.2) !important;
+        }
+        
+        /* プロレベルボタン */
+        .pro-button {
+            background: var(--accent-gradient);
+            color: var(--text-primary);
+            border: none;
+            padding: 14px 32px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 15px rgba(102, 126, 234, 0.4),
+                inset 0 1px 2px rgba(255,255,255,0.1);
+        }
+        
+        .pro-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .pro-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 8px 30px rgba(236, 72, 153, 0.4),
+                0 4px 20px rgba(139, 92, 246, 0.3),
+                0 2px 10px rgba(6, 182, 212, 0.2),
+                inset 0 1px 2px rgba(255,255,255,0.2);
+            background: var(--cool-gradient);
+        }
+        
+        .pro-button:hover::before {
+            left: 100%;
+        }
+        
+        .pro-button:active {
+            transform: translateY(-1px);
+        }
+        
+        /* ローディング・エラー状態 */
+        .loading { 
+            text-align: center; 
+            font-size: 1.4rem; 
+            color: var(--text-secondary);
+            padding: 60px 40px;
+            font-weight: 300;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(236, 72, 153, 0.1) 20%, 
+                rgba(139, 92, 246, 0.15) 50%, 
+                rgba(6, 182, 212, 0.1) 80%, 
+                transparent);
+            animation: loadingShimmer 2s ease-in-out infinite;
+        }
+        
+        .loading::after {
+            content: '...';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        
+        @keyframes loadingShimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes dots {
+            0%, 20% { color: transparent; text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
+            40% { color: var(--text-secondary); text-shadow: .25em 0 0 transparent, .5em 0 0 transparent; }
+            60% { text-shadow: .25em 0 0 var(--text-secondary), .5em 0 0 transparent; }
+            80%, 100% { text-shadow: .25em 0 0 var(--text-secondary), .5em 0 0 var(--text-secondary); }
+        }
+        
+        /* ページ遷移アニメーション */
+        #content {
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ホバー時のテキストシャイン効果 */
+        .blog-title:hover {
+            background: var(--warm-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textShine 2s ease-in-out infinite alternate;
+        }
+        
+        /* h2要素内の絵文字を正常表示 */
+        h2 {
+            font-family: 'Inter', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif !important;
+        }
+        
+        /* タイトルのグラデーション復活 */
+        h1 {
+            background: var(--accent-gradient) !important;
+            background-clip: text !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            animation: titleGlow 3s ease-in-out infinite alternate !important;
+        }
+        
+        /* h2のスタイリッシュな見た目 */
+        h2 {
+            background: var(--secondary-gradient) !important;
+            background-clip: text !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            font-weight: 600 !important;
+        }
+        
+        /* 絵文字のみを正常表示（タイトル内でも） */
+        .emoji,
+        h1 .emoji, 
+        h2 .emoji, 
+        h3 .emoji, 
+        .blog-title .emoji,
+        .article-meta .emoji {
+            color: initial !important;
+            -webkit-text-fill-color: initial !important;
+            background: none !important;
+            background-image: none !important;
+            background-clip: border-box !important;
+            -webkit-background-clip: border-box !important;
+            text-shadow: none !important;
+            filter: none !important;
+            animation: none !important;
+            transform: none !important;
+            display: inline !important;
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif !important;
+        }
+        
+        @keyframes textShine {
+            0% { 
+                filter: brightness(1.2) saturate(1.1);
+                background: var(--warm-gradient);
+            }
+            50% {
+                filter: brightness(1.5) saturate(1.3);
+                background: var(--cool-gradient);
+            }
+            100% { 
+                filter: brightness(1.8) saturate(1.5);
+                background: var(--accent-gradient);
+            }
+        }
+        
+        .error { 
+            background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,107,107,0.05));
+            border: 1px solid rgba(255,107,107,0.3);
+            padding: 32px; 
+            border-radius: 20px; 
+            text-align: center;
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            box-shadow: 0 8px 25px rgba(255,107,107,0.1);
+        }
+        
+        .error h3 {
+            color: #ff6b6b;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        /* レスポンシブデザイン - モバイルファースト */
+        @media (max-width: 480px) {
+            .container {
+                padding: 16px 12px;
+            }
+            
+            header {
+                padding: 30px 0 20px;
+                margin-bottom: 30px;
+            }
+            
+            h1 {
+                font-size: clamp(1.8rem, 10vw, 2.8rem);
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-top: 30px;
+            }
+            
+            .blog-card {
+                padding: 24px 20px;
+                border-radius: 16px;
+            }
+            
+            .blog-title {
+                font-size: 1.3rem;
+            }
+            
+            .pro-button {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            nav {
+                margin-bottom: 30px;
+            }
+            
+            nav ul {
+                gap: 2px;
+                flex-direction: column;
+            }
+            
+            nav a {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+                border-radius: 12px;
+            }
+        }
+        
+        @media (min-width: 481px) and (max-width: 768px) {
+            .container {
+                padding: 20px 16px;
+            }
+            
+            header {
+                padding: 40px 0 30px;
+                margin-bottom: 40px;
+            }
+            
+            h1 {
+                font-size: clamp(2rem, 12vw, 3.5rem);
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin-top: 40px;
+            }
+            
+            .blog-card {
+                padding: 28px 24px;
+                border-radius: 20px;
+            }
+            
+            .blog-title {
+                font-size: 1.5rem;
+            }
+            
+            nav ul {
+                gap: 4px;
+            }
+            
+            nav a {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .blog-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+        }
+        
+        @media (min-width: 1025px) {
+            .blog-grid {
+                grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            }
+        }
+        
+        /* 個別記事ページ用スタイル */
+        .article-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .back-button {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 32px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+            transform: translateX(-4px);
+        }
+        
+        article {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 60px 50px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-primary);
+            position: relative;
+        }
+        
+        article::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent-gradient);
+            border-radius: 24px 24px 0 0;
+            animation: articleGlow 5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes articleGlow {
+            0% { 
+                background: var(--accent-gradient);
+                box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+            }
+            33% {
+                background: var(--cool-gradient);
+                box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+            }
+            66% {
+                background: var(--warm-gradient);
+                box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+            }
+            100% { 
+                background: var(--secondary-gradient);
+                box-shadow: 0 0 30px rgba(139, 92, 246, 0.7);
+            }
+        }
+        
+        article header {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 32px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        
+        article h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.2;
+            margin-bottom: 24px;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .article-meta {
+            display: flex;
+            gap: 32px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+        
+        .article-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* 絵文字の適切な表示 - 完全修正 */
+        .emoji {
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "EmojiOne Color", "Twemoji Mozilla", "Android Emoji", sans-serif !important;
+            font-size: 1.2em !important;
+            line-height: 1 !important;
+            font-style: normal !important;
+            font-weight: normal !important;
+            text-rendering: optimizeQuality !important;
+            -webkit-font-smoothing: auto !important;
+            -moz-osx-font-smoothing: auto !important;
+            color: rgba(0,0,0,0.87) !important;
+            -webkit-text-fill-color: rgba(0,0,0,0.87) !important;
+            background: none !important;
+            background-image: none !important;
+            background-color: transparent !important;
+            background-clip: border-box !important;
+            -webkit-background-clip: border-box !important;
+            text-shadow: none !important;
+            filter: none !important;
+            transform: none !important;
+            animation: none !important;
+            display: inline !important;
+            position: relative !important;
+            z-index: 1000 !important;
+        }
+        
+        .article-excerpt {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid var(--accent-gradient);
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+        
+        .article-content h1, .article-content h2, .article-content h3 {
+            margin: 40px 0 20px 0;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .article-content h2 {
+            font-size: 2rem;
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+        }
+        
+        .article-content p {
+            margin: 20px 0;
+            white-space: pre-line;
+        }
+        
+        /* 記事内のリンクスタイル */
+        .article-content a {
+            color: var(--text-accent) !important;
+            text-decoration: none !important;
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(236, 72, 153, 0.1)) !important;
+            padding: 2px 6px !important;
+            border-radius: 6px !important;
+            transition: all 0.3s ease !important;
+            border: 1px solid rgba(251, 191, 36, 0.3) !important;
+        }
+        
+        .article-content a:hover {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(236, 72, 153, 0.2)) !important;
+            border-color: rgba(251, 191, 36, 0.6) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3) !important;
+        }
+        
+        /* CelticDreamscape画像付きリンクカード */
+        .article-content p:has(a[href*="sparkly-biscuit"]) {
+            background: 
+                linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)),
+                url('https://sparkly-biscuit-a80353.netlify.app/_astro/celtic-background.Dq9nZqyA.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            backdrop-filter: blur(10px);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, 
+                rgba(6, 182, 212, 0.8), 
+                rgba(16, 185, 129, 0.6), 
+                rgba(34, 197, 94, 0.4)) 1;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 32px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .article-content p:has(a[href*="sparkly-biscuit"])::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 70%, rgba(34, 139, 34, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(70, 130, 180, 0.15) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .article-content p:has(a[href*="sparkly-biscuit"]):hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(34, 139, 34, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .article-content p:has(a[href*="sparkly-biscuit"]) a {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            font-size: 1.4rem !important;
+            font-weight: 700 !important;
+            line-height: 1.3 !important;
+            display: block !important;
+            margin-bottom: 0 !important;
+            text-align: center !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        
+        .article-content p:has(a[href*="sparkly-biscuit"]) a:hover {
+            color: #fbbf24 !important;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9) !important;
+        }
+        
+        /* VibeCoding Salonリンクカード */
+        .article-content p:has(a[href*="vibecoding.salon"]) {
+            background: 
+                linear-gradient(135deg, rgba(139, 69, 19, 0.6), rgba(75, 0, 130, 0.4)),
+                linear-gradient(45deg, rgba(255, 140, 0, 0.1), rgba(138, 43, 226, 0.1));
+            backdrop-filter: blur(10px);
+            border: 2px solid;
+            border-image: linear-gradient(135deg, 
+                rgba(255, 140, 0, 0.8), 
+                rgba(138, 43, 226, 0.6), 
+                rgba(255, 69, 0, 0.4)) 1;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 32px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .article-content p:has(a[href*="vibecoding.salon"])::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 140, 0, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.15) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .article-content p:has(a[href*="vibecoding.salon"]):hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 8px 30px rgba(0, 0, 0, 0.4),
+                0 0 0 2px rgba(255, 140, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .article-content p:has(a[href*="vibecoding.salon"]) a {
+            color: #ffffff !important;
+            text-decoration: none !important;
+            background: none !important;
+            border: none !important;
+            padding: 0 !important;
+            font-size: 1.4rem !important;
+            font-weight: 700 !important;
+            line-height: 1.3 !important;
+            display: block !important;
+            margin-bottom: 0 !important;
+            text-align: center !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+            position: relative !important;
+            z-index: 2 !important;
+        }
+        
+        .article-content p:has(a[href*="vibecoding.salon"]) a:hover {
+            color: #ffd700 !important;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9) !important;
+        }
+        
+        .article-actions {
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        @media (max-width: 768px) {
+            article {
+                padding: 40px 28px;
+                border-radius: 20px;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .article-excerpt {
+                font-size: 1.1rem;
+            }
+            
+            .article-content {
+                font-size: 1.05rem;
+            }
+            
+            .back-button {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🥟 Gyouza Blog</h1>
-            <p class="subtitle">音楽配信とコーディングの日々</p>
+            <h1>Gyouza Blog</h1>
+            <p class="subtitle">音楽配信とバイブコーディングの日々</p>
         </header>
         
         <nav>
@@ -163,20 +1101,18 @@
                     <h2 class="blog-title">${post.title}</h2>
                     <p class="blog-excerpt">${post.excerpt || '記事の抜粋がありません'}</p>
                     <div class="blog-meta">
-                        <div>著者: ${post.author}</div>
                         <div>公開日: ${new Date(post.publishedAt).toLocaleDateString('ja-JP')}</div>
-                        <div>スラッグ: ${slug || '未設定'}</div>
                         ${post._id.startsWith('drafts.') ? '<div style="color: #ffeb3b;">⚠️ ドラフト状態</div>' : ''}
                     </div>
-                    <div style="margin-top: 15px; text-align: center;">
-                        <button style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;">記事を読む →</button>
+                    <div style="margin-top: 24px; text-align: center;">
+                        <button class="pro-button" style="font-size: 0.9rem; padding: 12px 24px;">記事を読む →</button>
                     </div>
                 </div>
             `;
             }).join('');
             
             content.innerHTML = `
-                <h2 style="margin-bottom: 20px;">📝 ブログ記事一覧 (${posts.length}件)</h2>
+                <h2 style="margin-bottom: 20px;"><span class="emoji">📝</span> ブログ記事一覧 (${posts.length}件)</h2>
                 <div class="blog-grid">${blogGrid}</div>
             `;
         }
@@ -186,7 +1122,7 @@
                 <div class="error">
                     <h3>エラー</h3>
                     <p>${message}</p>
-                    <button onclick="fetchBlogPosts()" style="margin-top: 15px; padding: 10px 20px; background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 5px; cursor: pointer;">再試行</button>
+                    <button onclick="fetchBlogPosts()" class="pro-button" style="margin-top: 15px; font-size: 0.9rem; padding: 10px 20px;">再試行</button>
                 </div>
             `;
         }
@@ -194,13 +1130,13 @@
         function showHome() {
             document.getElementById('content').innerHTML = `
                 <div style="text-align: center; padding: 40px;">
-                    <h2>🎵 ようこそ Gyouza Blog へ</h2>
+                    <h2><span class="emoji">🎵</span> ようこそ Gyouza Blog へ</h2>
                     <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9;">
-                        音楽配信やコーディングに関する日々の出来事を綴っています。<br>
+                        音楽配信やバイブコーディングや日々の出来事、考えることを綴っています。<br>
                         最新の記事をチェックしてみてください！
                     </p>
-                    <button onclick="showBlog()" style="margin-top: 30px; padding: 15px 30px; background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 10px; cursor: pointer; font-size: 1.1rem;">
-                        ブログを見る
+                    <button onclick="showBlog()" class="pro-button" style="margin-top: 30px; font-size: 1.1rem;">
+                        ブログを見る →
                     </button>
                 </div>
             `;
@@ -213,20 +1149,256 @@
             updateActiveNav('/blog');
         }
         
-        function showAbout() {
-            document.getElementById('content').innerHTML = `
+        async function showAbout() {
+            document.getElementById('content').innerHTML = '<div class="loading">About情報を読み込み中...</div>';
+            updateActiveNav('/about');
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/about');
+                const data = await response.json();
+                
+                if (data.success && data.about) {
+                    renderAbout(data.about);
+                } else {
+                    // Fallback to static content if no data found
+                    document.getElementById('content').innerHTML = `
+                        <div style="text-align: center; padding: 40px;">
+                            <h2 style="
+                                background: var(--accent-gradient);
+                                background-clip: text;
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                                font-size: clamp(2rem, 5vw, 3rem);
+                                margin-bottom: 32px;
+                                font-weight: 700;
+                            "><span class="emoji">👋</span> About Gyouza</h2>
+                            <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9; line-height: 1.6;">
+                                こんにちは！Gyouzaです。<br><br>
+                                YouTubeでの音楽配信とバイブコーディングを最近始めました。<br>
+                                このブログでは、日々の出来事や<br>
+                                日常で考えることを書いています。<br><br>
+                                よろしくお願いします！
+                            </p>
+                            
+                            <div style="
+                                margin-top: 40px;
+                                padding-top: 30px;
+                                border-top: 1px solid rgba(255,255,255,0.1);
+                            ">
+                                <a href="https://note.com/gyouza12" target="_blank" rel="noopener noreferrer" style="
+                                    display: inline-flex;
+                                    align-items: center;
+                                    gap: 12px;
+                                    background: linear-gradient(135deg, rgba(85, 203, 90, 0.2), rgba(85, 203, 90, 0.1));
+                                    border: 2px solid rgba(85, 203, 90, 0.5);
+                                    color: var(--text-primary);
+                                    padding: 16px 24px;
+                                    border-radius: 20px;
+                                    text-decoration: none;
+                                    font-size: 1.1rem;
+                                    font-weight: 600;
+                                    transition: all 0.3s ease;
+                                    backdrop-filter: blur(10px);
+                                " onmouseover="
+                                    this.style.background='linear-gradient(135deg, rgba(85, 203, 90, 0.3), rgba(85, 203, 90, 0.2))';
+                                    this.style.borderColor='rgba(85, 203, 90, 0.8)';
+                                    this.style.transform='translateY(-2px)';
+                                    this.style.boxShadow='0 8px 25px rgba(85, 203, 90, 0.3)';
+                                " onmouseout="
+                                    this.style.background='linear-gradient(135deg, rgba(85, 203, 90, 0.2), rgba(85, 203, 90, 0.1))';
+                                    this.style.borderColor='rgba(85, 203, 90, 0.5)';
+                                    this.style.transform='translateY(0)';
+                                    this.style.boxShadow='none';
+                                ">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect x="2" y="2" width="20" height="20" rx="4" fill="white" stroke="#ddd" stroke-width="1"/>
+                                        <path d="M8 9v8h2v-5.5c0-1.5 1-2.5 2.5-2.5S15 10 15 11.5V17h2V11c0-2.5-1.5-4-4-4-1.5 0-2.5 0.5-3 1V9H8z" fill="black"/>
+                                    </svg>
+                                    <span>ぎょうざのnote</span>
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error fetching about:', error);
+                // Fallback to static content on error
+                document.getElementById('content').innerHTML = `
+                    <div style="text-align: center; padding: 40px;">
+                        <h2 style="
+                            background: var(--accent-gradient);
+                            background-clip: text;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            font-size: clamp(2rem, 5vw, 3rem);
+                            margin-bottom: 32px;
+                            font-weight: 700;
+                        "><span class="emoji">👋</span> About Gyouza</h2>
+                        <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9; line-height: 1.6;">
+                            こんにちは！Gyouzaです。<br><br>
+                            YouTubeでの音楽配信とバイブコーディングを最近始めました。<br>
+                            このブログでは、日々の出来事や<br>
+                            日常で考えることを書いています。<br><br>
+                            よろしくお願いします！
+                        </p>
+                        
+                        <div style="
+                            margin-top: 40px;
+                            padding-top: 30px;
+                            border-top: 1px solid rgba(255,255,255,0.1);
+                        ">
+                            <a href="https://note.com/gyouza12" target="_blank" rel="noopener noreferrer" style="
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 12px;
+                                background: linear-gradient(135deg, rgba(85, 203, 90, 0.2), rgba(85, 203, 90, 0.1));
+                                border: 2px solid rgba(85, 203, 90, 0.5);
+                                color: var(--text-primary);
+                                padding: 16px 24px;
+                                border-radius: 20px;
+                                text-decoration: none;
+                                font-size: 1.1rem;
+                                font-weight: 600;
+                                transition: all 0.3s ease;
+                                backdrop-filter: blur(10px);
+                            " onmouseover="
+                                this.style.background='linear-gradient(135deg, rgba(85, 203, 90, 0.3), rgba(85, 203, 90, 0.2))';
+                                this.style.borderColor='rgba(85, 203, 90, 0.8)';
+                                this.style.transform='translateY(-2px)';
+                                this.style.boxShadow='0 8px 25px rgba(85, 203, 90, 0.3)';
+                            " onmouseout="
+                                this.style.background='linear-gradient(135deg, rgba(85, 203, 90, 0.2), rgba(85, 203, 90, 0.1))';
+                                this.style.borderColor='rgba(85, 203, 90, 0.5)';
+                                this.style.transform='translateY(0)';
+                                this.style.boxShadow='none';
+                            ">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="2" width="20" height="20" rx="4" fill="white" stroke="#ddd" stroke-width="1"/>
+                                    <path d="M8 9v8h2v-5.5c0-1.5 1-2.5 2.5-2.5S15 10 15 11.5V17h2V11c0-2.5-1.5-4-4-4-1.5 0-2.5 0.5-3 1V9H8z" fill="black"/>
+                                </svg>
+                                <span>ぎょうざのnote</span>
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderAbout(about) {
+            const content = document.getElementById('content');
+            
+            // Sanity Portable Textを処理（画像対応）
+            const bodyHtml = about.content ? about.content.map(block => {
+                if (block._type === 'block') {
+                    const processedText = block.children.map(child => child.text || '').join('');
+                    
+                    switch (block.style) {
+                        case 'h1': return `<h1 style="font-size: 2.5rem; margin: 30px 0 20px 0; color: #fff;">${processedText}</h1>`;
+                        case 'h2': return `<h2 style="font-size: 2rem; margin: 25px 0 15px 0; color: #fff;">${processedText}</h2>`;
+                        case 'h3': return `<h3 style="font-size: 1.5rem; margin: 20px 0 10px 0; color: #fff;">${processedText}</h3>`;
+                        default: return `<p style="margin: 15px 0; line-height: 1.8; white-space: pre-line;">${processedText}</p>`;
+                    }
+                } else if (block._type === 'image') {
+                    // 画像ブロックの処理
+                    if (block.asset && block.asset._ref) {
+                        const imageId = block.asset._ref;
+                        // Sanity CDNのURL形式で画像URLを構築
+                        const imageUrl = `https://cdn.sanity.io/images/zxcqyvgo/production/${imageId.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`;
+                        const alt = block.alt || '画像';
+                        const caption = block.caption || '';
+                        
+                        // キャプションに基づいてリンクURLを決定
+                        let linkUrl = null;
+                        if (caption.includes('アニメ『クリプトニンジャ咲耶』公式サイト') || caption.includes('公式サイト')) {
+                            linkUrl = 'https://cryptoninja-sakuya.xyz';
+                        } else if (caption.includes('クリプトニンジャ咲耶ファンサイト') || caption.includes('ファンサイト')) {
+                            linkUrl = 'https://ihayato.github.io/sakuyafan/';
+                        } else if (caption.includes('クリプトニンジャ咲耶WatchtoEarn') || caption.includes('WatchtoEarn')) {
+                            linkUrl = 'https://w2e-vlup.vercel.app';
+                        }
+                        
+                        const imageElement = `
+                            <img src="${imageUrl}" alt="${alt}" style="
+                                max-width: 100%; 
+                                height: auto; 
+                                border-radius: 12px; 
+                                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                                transition: transform 0.3s ease;
+                                cursor: ${linkUrl ? 'pointer' : 'default'};
+                            " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"${linkUrl ? ` onclick="window.open('${linkUrl}', '_blank')"` : ''}>
+                        `;
+                        
+                        return `
+                            <figure style="margin: 30px 0; text-align: center;">
+                                ${imageElement}
+                                ${caption ? `<figcaption style="margin-top: 12px; font-size: 0.9rem; color: var(--text-muted); font-style: italic;">${caption}</figcaption>` : ''}
+                            </figure>
+                        `;
+                    }
+                }
+                return '';
+            }).join('') : '';
+            
+            content.innerHTML = `
                 <div style="text-align: center; padding: 40px;">
-                    <h2>👋 About Gyouza</h2>
-                    <p style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9; line-height: 1.6;">
-                        こんにちは！Gyouzaです。<br><br>
-                        YouTubeでの音楽配信とコーディングが趣味です。<br>
-                        このブログでは、日々の配信の裏話や<br>
-                        開発に関する話題を書いています。<br><br>
-                        よろしくお願いします！
-                    </p>
+                    <h2 style="
+                        background: var(--accent-gradient);
+                        background-clip: text;
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        font-size: clamp(2rem, 5vw, 3rem);
+                        margin-bottom: 32px;
+                        font-weight: 700;
+                    "><span class="emoji">👋</span> ${about.title || 'About Gyouza'}</h2>
+                    <div style="margin-top: 20px; font-size: 1.1rem; opacity: 0.9; line-height: 1.6;">
+                        ${bodyHtml || `
+                            こんにちは！Gyouzaです。<br><br>
+                            YouTubeでの音楽配信とバイブコーディングを最近始めました。<br>
+                            このブログでは、日々の出来事や<br>
+                            日常で考えることを書いています。<br><br>
+                            よろしくお願いします！
+                        `}
+                    </div>
+                    
+                    <div style="
+                        margin-top: 40px;
+                        padding-top: 30px;
+                        border-top: 1px solid rgba(255,255,255,0.1);
+                    ">
+                        <a href="https://note.com/gyouza12" target="_blank" rel="noopener noreferrer" style="
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 12px;
+                            background: linear-gradient(135deg, rgba(85, 203, 90, 0.2), rgba(85, 203, 90, 0.1));
+                            border: 2px solid rgba(85, 203, 90, 0.5);
+                            color: var(--text-primary);
+                            padding: 16px 24px;
+                            border-radius: 20px;
+                            text-decoration: none;
+                            font-size: 1.1rem;
+                            font-weight: 600;
+                            transition: all 0.3s ease;
+                            backdrop-filter: blur(10px);
+                        " onmouseover="
+                            this.style.background='linear-gradient(135deg, rgba(85, 203, 90, 0.3), rgba(85, 203, 90, 0.2))';
+                            this.style.borderColor='rgba(85, 203, 90, 0.8)';
+                            this.style.transform='translateY(-2px)';
+                            this.style.boxShadow='0 8px 25px rgba(85, 203, 90, 0.3)';
+                        " onmouseout="
+                            this.style.background='linear-gradient(135deg, rgba(85, 203, 90, 0.2), rgba(85, 203, 90, 0.1))';
+                            this.style.borderColor='rgba(85, 203, 90, 0.5)';
+                            this.style.transform='translateY(0)';
+                            this.style.boxShadow='none';
+                        ">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="4" fill="white" stroke="#ddd" stroke-width="1"/>
+                                <path d="M8 9v8h2v-5.5c0-1.5 1-2.5 2.5-2.5S15 10 15 11.5V17h2V11c0-2.5-1.5-4-4-4-1.5 0-2.5 0.5-3 1V9H8z" fill="black"/>
+                            </svg>
+                            <span>ぎょうざのnote</span>
+                        </a>
+                    </div>
                 </div>
             `;
-            updateActiveNav('/about');
         }
         
         function updateActiveNav(path) {
@@ -279,50 +1451,282 @@
         function renderPost(post) {
             const content = document.getElementById('content');
             
-            // Sanity Portable Textをシンプルに変換
+            // Sanity Portable Textを高度に変換（リンク・画像対応）
             const bodyHtml = post.body ? post.body.map(block => {
                 if (block._type === 'block') {
-                    const text = block.children.map(child => child.text).join('');
+                    // markDefsを事前に処理
+                    const markDefs = block.markDefs || [];
+                    
+                    // childrenを処理してリンクを適用
+                    const processedText = block.children.map(child => {
+                        let text = child.text || '';
+                        
+                        // marksがある場合の処理
+                        if (child.marks && child.marks.length > 0) {
+                            child.marks.forEach(mark => {
+                                const markDef = markDefs.find(def => def._key === mark);
+                                if (markDef && markDef._type === 'link') {
+                                    // リンクマークの場合
+                                    text = `<a href="${markDef.href}" target="_blank" rel="noopener noreferrer" style="color: #60a5fa; text-decoration: underline; transition: color 0.3s ease;">${text}</a>`;
+                                } else if (mark === 'strong') {
+                                    // 太字マークの場合
+                                    text = `<strong>${text}</strong>`;
+                                } else if (mark === 'em') {
+                                    // 斜体マークの場合
+                                    text = `<em style="opacity: 0.8;">${text}</em>`;
+                                }
+                            });
+                        }
+                        
+                        return text;
+                    }).join('');
+                    
+                    // ブロックスタイルに応じてHTMLを生成
                     switch (block.style) {
-                        case 'h1': return `<h1 style="font-size: 2.5rem; margin: 30px 0 20px 0; color: #fff;">${text}</h1>`;
-                        case 'h2': return `<h2 style="font-size: 2rem; margin: 25px 0 15px 0; color: #fff;">${text}</h2>`;
-                        case 'h3': return `<h3 style="font-size: 1.5rem; margin: 20px 0 10px 0; color: #fff;">${text}</h3>`;
-                        default: return `<p style="margin: 15px 0; line-height: 1.8; white-space: pre-line;">${text}</p>`;
+                        case 'h1': return `<h1 style="font-size: 2.5rem; margin: 30px 0 20px 0; color: #fff;">${processedText}</h1>`;
+                        case 'h2': return `<h2 style="font-size: 2rem; margin: 25px 0 15px 0; color: #fff;">${processedText}</h2>`;
+                        case 'h3': return `<h3 style="font-size: 1.5rem; margin: 20px 0 10px 0; color: #fff;">${processedText}</h3>`;
+                        case 'blockquote': return `<blockquote style="margin: 20px 0; padding: 15px 20px; border-left: 4px solid #60a5fa; background: rgba(96, 165, 250, 0.1); font-style: italic;">${processedText}</blockquote>`;
+                        default: return `<p style="margin: 15px 0; line-height: 1.8; white-space: pre-line;">${processedText}</p>`;
+                    }
+                } else if (block._type === 'image') {
+                    // 画像ブロックの処理
+                    if (block.asset && block.asset._ref) {
+                        const imageId = block.asset._ref;
+                        // Sanity CDNのURL形式で画像URLを構築
+                        const imageUrl = `https://cdn.sanity.io/images/zxcqyvgo/production/${imageId.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`;
+                        const alt = block.alt || '画像';
+                        const caption = block.caption || '';
+                        const link = block.link || null;
+                        
+                        // 記事別の画像サイズ調整
+                        let imageMaxWidth = '100%';
+                        if (post.title && post.title.includes('音楽配信について')) {
+                            imageMaxWidth = '80%'; // 音楽配信についての記事では画像を少し小さくする
+                        }
+                        
+                        const imageElement = `
+                            <img src="${imageUrl}" alt="${alt}" style="
+                                max-width: ${imageMaxWidth}; 
+                                height: auto; 
+                                border-radius: 12px; 
+                                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+                                transition: transform 0.3s ease;
+                                cursor: ${link ? 'pointer' : 'default'};
+                            " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"${link ? ` onclick="window.open('${link}', '_blank')"` : ''}>
+                        `;
+                        
+                        return `
+                            <figure style="margin: 30px 0; text-align: center;">
+                                ${imageElement}
+                                ${caption ? `<figcaption style="margin-top: 12px; font-size: 0.9rem; color: var(--text-muted); font-style: italic;">${caption}</figcaption>` : ''}
+                            </figure>
+                        `;
                     }
                 }
                 return '';
             }).join('') : '<p>本文がありません</p>';
             
             content.innerHTML = `
-                <div style="max-width: 800px; margin: 0 auto;">
+                <div class="article-container">
                     <div style="margin-bottom: 30px;">
-                        <button onclick="showBlog()" style="background: rgba(255,255,255,0.2); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-bottom: 20px;">
+                        <button onclick="showBlog()" class="back-button">
                             ← ブログ一覧に戻る
                         </button>
                     </div>
                     
-                    <article style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 15px; padding: 40px; border: 1px solid rgba(255,255,255,0.2);">
-                        <header style="border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 20px; margin-bottom: 30px;">
-                            <h1 style="font-size: 2.5rem; margin-bottom: 15px; color: #fff; line-height: 1.2;">${post.title}</h1>
-                            <div style="display: flex; gap: 20px; opacity: 0.8; font-size: 0.9rem;">
-                                <span>📝 ${post.author}</span>
-                                <span>📅 ${new Date(post.publishedAt).toLocaleDateString('ja-JP')}</span>
+                    <article>
+                        <header>
+                            <h1>${post.title}</h1>
+                            <div class="article-meta">
+                                <span><span class="emoji">📝</span> ${post.author}</span>
+                                <span><span class="emoji">📅</span> ${new Date(post.publishedAt).toLocaleDateString('ja-JP')}</span>
                             </div>
-                            ${post.excerpt ? `<p style="margin-top: 15px; font-size: 1.1rem; opacity: 0.9; font-style: italic;">${post.excerpt}</p>` : ''}
+                            ${post.excerpt ? `<div class="article-excerpt">${post.excerpt}</div>` : ''}
                         </header>
                         
-                        <div style="font-size: 1.1rem; line-height: 1.8;">
+                        <div class="article-content">
                             ${bodyHtml}
+                        </div>
+                        
+                        <div class="like-section" style="
+                            text-align: center;
+                            margin-top: 40px;
+                            padding-top: 30px;
+                            border-top: 1px solid rgba(255,255,255,0.1);
+                        ">
+                            <button id="likeButton" onclick="toggleLike()" style="
+                                background: linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2));
+                                border: 2px solid rgba(236, 72, 153, 0.5);
+                                color: var(--text-primary);
+                                padding: 12px 24px;
+                                border-radius: 30px;
+                                font-size: 1.1rem;
+                                font-weight: 600;
+                                cursor: pointer;
+                                transition: all 0.3s ease;
+                                backdrop-filter: blur(10px);
+                                display: inline-flex;
+                                align-items: center;
+                                gap: 8px;
+                            " onmouseover="
+                                this.style.background='linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(139, 92, 246, 0.3))';
+                                this.style.borderColor='rgba(236, 72, 153, 0.8)';
+                                this.style.transform='translateY(-2px)';
+                                this.style.boxShadow='0 8px 25px rgba(236, 72, 153, 0.3)';
+                            " onmouseout="
+                                this.style.background='linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2))';
+                                this.style.borderColor='rgba(236, 72, 153, 0.5)';
+                                this.style.transform='translateY(0)';
+                                this.style.boxShadow='none';
+                            ">
+                                <span class="emoji">👍</span>
+                                <span id="likeText">いいね</span>
+                                <span id="likeCount" style="
+                                    background: rgba(255,255,255,0.1);
+                                    padding: 2px 8px;
+                                    border-radius: 12px;
+                                    font-size: 0.9rem;
+                                ">0</span>
+                            </button>
                         </div>
                     </article>
                     
-                    <div style="text-align: center; margin-top: 30px;">
-                        <button onclick="showBlog()" style="background: rgba(255,255,255,0.3); color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-size: 1.1rem;">
-                            他の記事を見る
+                    <div class="article-actions">
+                        <button onclick="showBlog()" class="pro-button" style="font-size: 1.1rem;">
+                            他の記事を見る →
                         </button>
                     </div>
                 </div>
             `;
+            
+            // vibecoding.salonリンクのテキストを修正
+            setTimeout(() => {
+                const vibecodingLinks = document.querySelectorAll('a[href*="vibecoding.salon"]');
+                vibecodingLinks.forEach(link => {
+                    if (link.textContent.includes('vibecoding.salon')) {
+                        link.textContent = 'バイブコーディングサロン';
+                    }
+                });
+                
+                // 「バイブコーディングを始めてみませんか？」記事内の画像にVibeCoding Salonリンクを追加
+                if (post.title && post.title.includes('バイブコーディングを始めてみませんか')) {
+                    // vibecoding.salonのカード形式のリンクを削除
+                    const vibecodingCardParagraphs = document.querySelectorAll('.article-content p:has(a[href*="vibecoding.salon"])');
+                    vibecodingCardParagraphs.forEach(p => {
+                        p.style.display = 'none';
+                    });
+                    
+                    const images = document.querySelectorAll('.article-content img');
+                    images.forEach(img => {
+                        // 画像にクリックイベントを追加
+                        img.style.cursor = 'pointer';
+                        img.onclick = () => {
+                            window.open('https://vibecoding.salon', '_blank');
+                        };
+                        
+                        // ホバー効果を強化
+                        img.addEventListener('mouseenter', () => {
+                            img.style.transform = 'scale(1.05)';
+                            img.style.filter = 'brightness(1.1)';
+                        });
+                        
+                        img.addEventListener('mouseleave', () => {
+                            img.style.transform = 'scale(1.02)';
+                            img.style.filter = 'brightness(1)';
+                        });
+                    });
+                }
+                
+                // 「音楽配信について」記事内の画像にCelticDreamscapeリンクを追加
+                if (post.title && post.title.includes('音楽配信について')) {
+                    const images = document.querySelectorAll('.article-content img');
+                    images.forEach(img => {
+                        // 画像にクリックイベントを追加
+                        img.style.cursor = 'pointer';
+                        img.onclick = () => {
+                            window.open('https://sparkly-biscuit-a80353.netlify.app', '_blank');
+                        };
+                        
+                        // ホバー効果を強化
+                        img.addEventListener('mouseenter', () => {
+                            img.style.transform = 'scale(1.05)';
+                            img.style.filter = 'brightness(1.1)';
+                        });
+                        
+                        img.addEventListener('mouseleave', () => {
+                            img.style.transform = 'scale(1.02)';
+                            img.style.filter = 'brightness(1)';
+                        });
+                    });
+                }
+            }, 100);
+            
+            // いいねボタンを初期化
+            setTimeout(() => {
+                initializeLikeButton(post.slug?.current || post.title);
+            }, 200);
+        }
+        
+        // いいね機能
+        let currentPostSlug = '';
+        
+        function toggleLike() {
+            const likeButton = document.getElementById('likeButton');
+            const likeText = document.getElementById('likeText');
+            const likeCount = document.getElementById('likeCount');
+            
+            if (!currentPostSlug) return;
+            
+            // LocalStorageからカウントを取得
+            const likeCounts = JSON.parse(localStorage.getItem('blogLikeCounts') || '{}');
+            
+            // 常にカウントを増やす（取り消し機能なし）
+            const currentCount = likeCounts[currentPostSlug] || 0;
+            const newCount = currentCount + 1;
+            likeCounts[currentPostSlug] = newCount;
+            likeCount.textContent = newCount;
+            
+            // テキストを一時的に変更
+            const originalText = likeText.textContent;
+            likeText.textContent = 'ありがとう！';
+            
+            // ボタンの色を一時的に変更
+            likeButton.style.background = 'linear-gradient(135deg, rgba(236, 72, 153, 0.5), rgba(139, 92, 246, 0.5))';
+            likeButton.style.borderColor = 'rgba(236, 72, 153, 1)';
+            
+            // アニメーション効果
+            likeButton.style.transform = 'scale(1.15)';
+            
+            // 1秒後に元に戻す
+            setTimeout(() => {
+                likeText.textContent = 'いいね';
+                likeButton.style.background = 'linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2))';
+                likeButton.style.borderColor = 'rgba(236, 72, 153, 0.5)';
+                likeButton.style.transform = 'scale(1)';
+            }, 1000);
+            
+            // LocalStorageに保存
+            localStorage.setItem('blogLikeCounts', JSON.stringify(likeCounts));
+        }
+        
+        function initializeLikeButton(postSlug) {
+            currentPostSlug = postSlug;
+            const likeText = document.getElementById('likeText');
+            const likeCount = document.getElementById('likeCount');
+            const likeButton = document.getElementById('likeButton');
+            
+            if (!likeText || !likeCount || !likeButton) return;
+            
+            // LocalStorageからカウントを取得
+            const likeCounts = JSON.parse(localStorage.getItem('blogLikeCounts') || '{}');
+            const count = likeCounts[postSlug] || 0;
+            
+            // UIを初期化（常に同じスタイル）
+            likeText.textContent = 'いいね';
+            likeButton.style.background = 'linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(139, 92, 246, 0.2))';
+            likeButton.style.borderColor = 'rgba(236, 72, 153, 0.5)';
+            likeCount.textContent = count;
         }
 
         window.addEventListener('popstate', () => {

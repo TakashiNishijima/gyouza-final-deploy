@@ -29,7 +29,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "node spa-server.js"
+    "serve": "node spa-server.js",
+    "start:production": "NODE_ENV=production node api-production.js",
+    "deploy:build": "npm run build && cp build/index.html build/index.production.html"
   },
   "eslintConfig": {
     "extends": [

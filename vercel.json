@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api-production.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api-production.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api-production.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "SANITY_TOKEN": "@sanity-token",
+    "SANITY_PROJECT_ID": "zxcqyvgo",
+    "SANITY_DATASET": "production"
+  }
+}
