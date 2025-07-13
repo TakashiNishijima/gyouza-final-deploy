@@ -1,0 +1,1 @@
+reconnect: GitHub-Vercel接続をリセット
