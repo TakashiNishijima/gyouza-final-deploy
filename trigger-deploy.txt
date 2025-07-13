@@ -1,0 +1,1 @@
+trigger: Build設定修正後のデプロイ実行
