@@ -1,8 +1,14 @@
 {
   "version": 2,
   "functions": {
-    "api-production.js": {
+    "api/index.js": {
       "maxDuration": 30
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/api"
+    }
+  ]
 }
