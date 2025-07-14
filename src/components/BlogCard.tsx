@@ -41,16 +41,6 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         )}
         
         <div className="p-6 relative z-10">
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs px-3 py-1 rounded-full font-medium shadow-md neon-glow group-hover:neon-pink transition-all duration-300"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
           
           <h2 className="text-xl font-bold mb-3 text-white group-hover:text-transparent group-hover:bg-gradient-holographic group-hover:bg-clip-text transition-all duration-300 leading-tight">
             {post.title}
