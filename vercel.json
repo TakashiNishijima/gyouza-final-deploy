@@ -1,14 +1,21 @@
 {
   "version": 2,
-  "functions": {
-    "api/index.js": {
-      "maxDuration": 30
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
-  },
+  ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/api"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
     }
   ]
 }
