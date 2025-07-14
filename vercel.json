@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api-production.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api-production.js": {
+      "maxDuration": 30
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/api-production.js"
-    }
-  ]
+  }
 }
