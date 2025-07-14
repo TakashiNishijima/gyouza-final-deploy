@@ -18,7 +18,7 @@
     "express": "^5.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-helmet-async": "^2.0.5",
+    "react-helmet-async": "^2.1.0",
     "react-router-dom": "^7.6.3",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5",
@@ -32,6 +32,11 @@
     "serve": "node spa-server.js",
     "start:production": "NODE_ENV=production node api-production.js",
     "deploy:build": "npm run build && cp build/index.html build/index.production.html"
+  },
+  "overrides": {
+    "react-helmet-async": {
+      "react": "$react"
+    }
   },
   "eslintConfig": {
     "extends": [
